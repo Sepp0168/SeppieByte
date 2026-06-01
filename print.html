@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SeppieByte // 3D Print Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="print">
+
+  <div class="overlay overlay--grid" aria-hidden="true"></div>
+  <div class="overlay overlay--scan" aria-hidden="true"></div>
+  <div class="overlay overlay--noise" aria-hidden="true"></div>
+  <div class="overlay overlay--vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 8 8" shape-rendering="crispEdges" width="28" height="28">
+          <g fill="currentColor">
+            <rect x="1" y="0" width="6" height="1"/>
+            <rect x="0" y="1" width="2" height="1"/>
+            <rect x="0" y="2" width="2" height="1"/>
+            <rect x="1" y="3" width="6" height="1"/>
+            <rect x="6" y="4" width="2" height="1"/>
+            <rect x="6" y="5" width="2" height="1"/>
+            <rect x="0" y="6" width="2" height="1"/>
+            <rect x="1" y="7" width="6" height="1"/>
+          </g>
+        </svg>
+      </span>
+      <span class="brand__name">SeppieByte</span>
+      <span class="brand__cursor">_</span>
+    </a>
+    <nav class="topnav">
+      <a href="index.html" class="topnav__link">Home</a>
+      <a href="print.html" class="topnav__link is-active">3D Print</a>
+      <a href="ted.html" class="topnav__link">TED</a>
+      <a href="index.html#features" class="topnav__link">About</a>
+    </nav>
+    <div class="topbar__meta">
+      <span class="led led--on"></span>
+      <span class="topbar__status">PRINT MODULE LOADED</span>
+    </div>
+  </header>
+
+  <main class="page page--tool">
+
+    <section class="tool-hero">
+      <span class="tagline">[ MODULE 01 // PRINT.EXE ]</span>
+      <h1 class="hero__title">
+        <span class="hero__title-line">3D PRINT</span>
+        <span class="hero__title-line hero__title-line--alt">QUOTE.</span>
+      </h1>
+      <p class="hero__subtitle">
+        Drop a model or paste a direct model link. The browser calculates your
+        first estimate from the STL, then the backend stores the model and
+        confirms the request for a permanent quote.
+      </p>
+    </section>
+
+    <section class="print">
+      <form id="print-form" class="print__form" data-testid="print-form">
+
+        <!-- Upload -->
+        <label class="drop" id="drop" data-testid="print-drop">
+          <input type="file" id="print-file" name="file" accept=".stl,.3mf,.obj" data-testid="print-file" hidden />
+          <div class="drop__inner">
+            <div class="drop__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter">
+                <path d="M12 3v12"/>
+                <path d="M7 8l5-5 5 5"/>
+                <path d="M4 17v3h16v-3"/>
+              </svg>
+            </div>
+            <p class="drop__title">DROP <span>.STL</span> / <span>.3MF</span> HERE</p>
+            <p class="drop__sub" id="drop-sub">or click to browse</p>
+          </div>
+        </label>
+
+        <div class="or"><span>OR</span></div>
+
+        <!-- Link -->
+        <label class="field field--block">
+          <span class="field__label">Printables / Thingiverse / direct URL</span>
+          <input type="url" id="print-link" name="link" class="field__input" data-testid="print-link"
+                 placeholder="https://www.printables.com/model/..." />
+        </label>
+
+        <!-- Options -->
+        <div class="print__opts">
+          <label class="field">
+            <span class="field__label">Material</span>
+            <select id="print-material" name="material" class="field__select" data-testid="print-material">
+              <option value="PLA">PLA</option>
+              <option value="PETG">PETG</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Strength</span>
+            <select id="print-strength" name="strength" class="field__select" data-testid="print-strength">
+              <option value="Pweak">Prototype weak</option>
+              <option value="weak" selected>Weak</option>
+              <option value="medium">Medium</option>
+              <option value="strong">Strong</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Detail</span>
+            <select id="print-detail" name="detail" class="field__select" data-testid="print-detail">
+              <option value="Pbad">Prototype bad</option>
+              <option value="Bad" selected>Bad</option>
+              <option value="Good">Good</option>
+              <option value="Fine">Fine</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg" data-testid="print-quote-btn">
+          ► Get Quote
+        </button>
+      </form>
+
+      <!-- Result -->
+      <aside class="quote" id="quote" data-testid="quote-card" hidden>
+        <div class="quote__head">
+          <span class="quote__kicker">// ESTIMATED QUOTE</span>
+          <h2 class="quote__price" id="quote-price">€0.00</h2>
+        </div>
+        <ul class="quote__list">
+          <li><span>Model</span><strong id="q-model">&mdash;</strong></li>
+          <li><span>Material</span><strong id="q-mat">&mdash;</strong></li>
+          <li><span>Infill</span><strong id="q-infill">&mdash;</strong></li>
+          <li><span>Quality</span><strong id="q-quality">&mdash;</strong></li>
+          <li><span>Est. Time</span><strong id="q-time">&mdash;</strong></li>
+          <li><span>Est. Weight</span><strong id="q-weight">&mdash;</strong></li>
+          <li><span>Surface</span><strong id="q-surface">&mdash;</strong></li>
+          <li><span>Volume</span><strong id="q-volume">&mdash;</strong></li>
+        </ul>
+        <p class="quote__note" id="quote-note"></p>
+        <button type="button" class="btn btn--primary" id="quote-continue">Continue</button>
+      </aside>
+    </section>
+
+    <section class="contact-panel" id="contact-panel" hidden>
+      <form id="contact-form" class="print__form">
+        <div class="section-head">
+          <span class="section-head__kicker">// CONTACT</span>
+          <h2 class="section-head__title">Send Request</h2>
+          <p class="section-head__sub">I will check the model and send the permanent quote.</p>
+        </div>
+        <label class="field field--block">
+          <span class="field__label">Name</span>
+          <input class="field__input" name="name" autocomplete="name" required />
+        </label>
+        <label class="field field--block">
+          <span class="field__label">Phone number</span>
+          <input class="field__input" name="phone" autocomplete="tel" required />
+        </label>
+        <label class="field field--block">
+          <span class="field__label">Coupon code(s)</span>
+          <input class="field__input" name="coupons" placeholder="Optional, separated by commas" />
+        </label>
+        <button type="submit" class="btn btn--primary btn--lg">Send Request</button>
+        <p class="quote__note" id="contact-status"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

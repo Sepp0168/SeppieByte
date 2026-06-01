@@ -1,0 +1,10 @@
+# Ignore everything by default
+*
+
+# Keep HTML files and root app/style assets
+!*.html
+!app.js
+!styles.css
+
+# Keep the gitignore itself
+!.gitignore

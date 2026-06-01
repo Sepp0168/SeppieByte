@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SeppieByte // TED — Text Encoder Decoder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="ted">
+
+  <div class="overlay overlay--grid" aria-hidden="true"></div>
+  <div class="overlay overlay--scan" aria-hidden="true"></div>
+  <div class="overlay overlay--noise" aria-hidden="true"></div>
+  <div class="overlay overlay--vignette" aria-hidden="true"></div>
+
+  <header class="topbar" data-testid="topbar">
+    <a class="brand" href="index.html" data-testid="brand-link">
+      <span class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 8 8" shape-rendering="crispEdges" width="28" height="28">
+          <g fill="currentColor">
+            <rect x="1" y="0" width="6" height="1"/>
+            <rect x="0" y="1" width="2" height="1"/>
+            <rect x="0" y="2" width="2" height="1"/>
+            <rect x="1" y="3" width="6" height="1"/>
+            <rect x="6" y="4" width="2" height="1"/>
+            <rect x="6" y="5" width="2" height="1"/>
+            <rect x="0" y="6" width="2" height="1"/>
+            <rect x="1" y="7" width="6" height="1"/>
+          </g>
+        </svg>
+      </span>
+      <span class="brand__name">SeppieByte</span>
+      <span class="brand__cursor">_</span>
+    </a>
+    <nav class="topnav">
+      <a href="index.html" class="topnav__link">Home</a>
+      <a href="print.html" class="topnav__link">3D Print</a>
+      <a href="ted.html" class="topnav__link is-active">TED</a>
+      <a href="index.html#features" class="topnav__link">About</a>
+    </nav>
+    <div class="topbar__meta">
+      <span class="led led--on"></span>
+      <span class="topbar__status">TED MODULE LOADED</span>
+    </div>
+  </header>
+
+  <main class="page page--tool">
+
+    <section class="tool-hero">
+      <span class="tagline">[ MODULE 02 // TED.EXE ]</span>
+      <h1 class="hero__title">
+        <span class="hero__title-line">TEXT</span>
+        <span class="hero__title-line hero__title-line--alt">EN/DECODE</span>
+      </h1>
+      <p class="hero__subtitle">
+        A wired-up sandbox. Plug your own encode/decode algorithm into
+        <code class="kbd">app.js → window.TED</code> and this UI will use it.
+        Until then, a Base64 + ROT13 demo runs locally.
+      </p>
+    </section>
+
+    <section class="ted">
+      <div class="ted__controls" data-testid="ted-controls">
+        <label class="field">
+          <span class="field__label">Algorithm</span>
+          <select id="ted-algo" class="field__select" data-testid="ted-algo">
+            <option value="base64">Base64</option>
+            <option value="rot13">ROT13</option>
+            <option value="hex">Hex</option>
+            <option value="binary">Binary (UTF-8)</option>
+            <option value="reverse">Reverse</option>
+          </select>
+        </label>
+
+        <div class="ted__mode">
+          <button class="seg is-active" data-mode="encode" data-testid="ted-mode-encode">Encode</button>
+          <button class="seg" data-mode="decode" data-testid="ted-mode-decode">Decode</button>
+        </div>
+      </div>
+
+      <div class="ted__panes">
+        <div class="ted__pane">
+          <div class="ted__pane-head">
+            <span>INPUT</span>
+            <button id="ted-clear" class="ghost-link" data-testid="ted-clear">CLEAR</button>
+          </div>
+          <textarea id="ted-input" class="ted__area" data-testid="ted-input"
+            placeholder="Type or paste text here..."></textarea>
+        </div>
+
+        <div class="ted__arrow" aria-hidden="true">
+          <span id="ted-arrow">→</span>
+        </div>
+
+        <div class="ted__pane">
+          <div class="ted__pane-head">
+            <span>OUTPUT</span>
+            <button id="ted-copy" class="ghost-link" data-testid="ted-copy">COPY</button>
+          </div>
+          <textarea id="ted-output" class="ted__area" data-testid="ted-output" readonly
+            placeholder="Result will appear here..."></textarea>
+        </div>
+      </div>
+
+      <div class="ted__hint">
+        <span class="kbd">TIP</span>
+        Drop your custom logic in <code class="kbd">app.js</code> — see
+        the <code class="kbd">window.TED</code> object at the bottom of the file.
+      </div>
+    </section>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</html>

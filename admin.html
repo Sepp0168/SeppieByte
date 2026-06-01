@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SeppieByte // Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="admin">
+  <div class="overlay overlay--grid" aria-hidden="true"></div>
+  <div class="overlay overlay--scan" aria-hidden="true"></div>
+  <div class="overlay overlay--noise" aria-hidden="true"></div>
+  <div class="overlay overlay--vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand__name">SeppieByte</span><span class="brand__cursor">_</span></a>
+    <nav class="topnav">
+      <a href="index.html" class="topnav__link">Home</a>
+      <a href="print.html" class="topnav__link">3D Print</a>
+      <a href="admin.html" class="topnav__link is-active">Admin</a>
+    </nav>
+    <div class="topbar__meta"><span class="led led--on"></span><span class="topbar__status">PRIVATE</span></div>
+  </header>
+
+  <main class="page page--tool">
+    <section class="tool-hero">
+      <span class="tagline">[ ADMIN // LOCKED ]</span>
+      <h1 class="hero__title"><span class="hero__title-line">QUOTE</span><span class="hero__title-line hero__title-line--alt">QUEUE.</span></h1>
+    </section>
+
+    <section class="admin-panel">
+      <form id="admin-login" class="ted__controls">
+        <label class="field field--block">
+          <span class="field__label">Password</span>
+          <input class="field__input" type="password" name="password" autocomplete="current-password" required />
+        </label>
+        <button type="submit" class="btn btn--primary">Unlock</button>
+        <p class="quote__note" id="admin-status"></p>
+      </form>
+      <div id="admin-list" class="admin-list"></div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
